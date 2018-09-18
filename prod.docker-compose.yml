@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /home/bscs/certs:/etc/nginx/certs
+      - /home/bscs/certs/dhparam.pem:/etc/nginx/dhparam/dhparam.pem
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
